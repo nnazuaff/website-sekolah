@@ -2,6 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use App\Models\SchoolProfile;
+use Illuminate\Support\Facades\Storage;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -24,6 +26,14 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+            ->brandLogo(function () {
+                $logo = SchoolProfile::query()->first()?->logo;
+
+                return $logo
+                    ? Storage::disk('public')->url($logo)
+                    : null;
+            })
+            ->brandLogoHeight('2.5rem')
             ->default()
             ->id('admin')
             ->path('admin')

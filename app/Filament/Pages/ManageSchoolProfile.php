@@ -2,6 +2,8 @@
 
 namespace App\Filament\Pages;
 
+use BackedEnum;
+use Filament\Support\Icons\Heroicon;
 use App\Models\SchoolProfile;
 use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
@@ -17,6 +19,7 @@ use Filament\Schemas\Schema;
 
 class ManageSchoolProfile extends Page
 {
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBuildingOffice2;
     protected string $view = 'filament.pages.manage-school-profile';
 
     protected static ?string $navigationLabel = 'Profil Sekolah';

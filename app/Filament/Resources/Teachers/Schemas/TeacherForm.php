@@ -35,6 +35,7 @@ class TeacherForm
             FileUpload::make('photo')
                 ->label('Foto')
                 ->image()
+                ->disk('public')
                 ->directory('teachers'),
 
             Textarea::make('description')

@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class NewsResource extends Resource
 {
@@ -21,6 +22,10 @@ class NewsResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedNewspaper;
 
     protected static ?string $recordTitleAttribute = 'title';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Informasi Publik';
+
+    protected static ?int $navigationSort = 1;
 
     public static function getNavigationLabel(): string
     {

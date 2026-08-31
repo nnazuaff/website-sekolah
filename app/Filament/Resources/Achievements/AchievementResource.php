@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class AchievementResource extends Resource
 {
@@ -21,6 +22,10 @@ class AchievementResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedTrophy;
 
     protected static ?string $recordTitleAttribute = 'title';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Kesiswaan';
+
+    protected static ?int $navigationSort = 1;
 
     public static function getNavigationLabel(): string
     {

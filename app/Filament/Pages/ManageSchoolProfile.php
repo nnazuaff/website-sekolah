@@ -2,9 +2,8 @@
 
 namespace App\Filament\Pages;
 
-use BackedEnum;
-use Filament\Support\Icons\Heroicon;
 use App\Models\SchoolProfile;
+use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
@@ -16,13 +15,20 @@ use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\Form;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
+use UnitEnum;
 
 class ManageSchoolProfile extends Page
 {
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBuildingOffice2;
+
     protected string $view = 'filament.pages.manage-school-profile';
 
     protected static ?string $navigationLabel = 'Profil Sekolah';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Pengaturan Sekolah';
+
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $title = 'Profil Sekolah';
 
@@ -138,8 +144,8 @@ class ManageSchoolProfile extends Page
 
         $record = $this->getRecord();
 
-        if (!$record) {
-            $record = new SchoolProfile();
+        if (! $record) {
+            $record = new SchoolProfile;
         }
 
         $record->fill($data);

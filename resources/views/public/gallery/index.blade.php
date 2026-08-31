@@ -1,0 +1,6 @@
+@extends('layouts.public')
+@section('title', 'Galeri')
+@section('content')
+<section class="bg-slate-900 text-white"><div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"><a href="{{ route('home') }}" class="text-sm text-slate-300 hover:text-white">← Kembali ke beranda</a><h1 class="mt-8 text-4xl font-bold">Galeri Sekolah</h1><p class="mt-4 text-slate-300">Dokumentasi kegiatan dan momen terbaik sekolah.</p></div></section>
+<section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8"><div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">@forelse($galleries as $gallery)<article class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">@if($gallery->image)<img src="{{ Storage::disk('public')->url($gallery->image) }}" alt="{{ $gallery->title }}" class="h-56 w-full object-cover">@else<div class="flex h-56 items-center justify-center bg-slate-100 text-slate-400">Tidak ada foto</div>@endif<div class="p-5"><h2 class="text-xl font-semibold">{{ $gallery->title }}</h2>@if($gallery->taken_at)<p class="mt-1 text-sm text-slate-500">{{ $gallery->taken_at->translatedFormat('d F Y') }}</p>@endif@if($gallery->description)<p class="mt-3 text-slate-600">{{ $gallery->description }}</p>@endif</div></article>@empty<p class="text-slate-500">Belum ada dokumentasi galeri.</p>@endforelse</div></section>
+@endsection

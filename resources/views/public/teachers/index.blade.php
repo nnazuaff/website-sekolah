@@ -3,8 +3,8 @@
 @section('title', 'Guru')
 
 @section('content')
-    <section class="bg-slate-900 text-white">
-        <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <section class="site-hero">
+        <div class="site-hero-inner">
             <a href="{{ route('home') }}" class="text-sm text-slate-300 transition hover:text-white">
                 ← Kembali ke beranda
             </a>
@@ -18,7 +18,7 @@
         </div>
     </section>
 
-    <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <section class="site-section">
         <livewire:teacher-list />
     </section>
 @endsection

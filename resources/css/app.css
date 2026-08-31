@@ -6,4 +6,33 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    --color-brand-950: #071a3d;
+    --color-brand-900: #0b2a63;
+    --color-brand-800: #123f8f;
+    --color-brand-700: #1754b5;
+    --color-brand-600: #2563c7;
+    --color-brand-100: #dcecff;
+    --color-brand-50: #eef6ff;
+}
+
+@layer base {
+    html { scroll-behavior: smooth; }
+    body { background: #f8fbff; color: #12213f; }
+    :focus-visible { outline: 3px solid #60a5fa; outline-offset: 3px; }
+}
+
+@layer components {
+    .site-shell { @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8; }
+    .site-hero { @apply bg-brand-950 text-white; }
+    .site-hero-inner { @apply mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24; }
+    .site-eyebrow { @apply text-sm font-bold uppercase tracking-[0.2em] text-sky-300; }
+    .site-section { @apply mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-20; }
+    .site-card { @apply rounded-2xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md; }
+    .site-link { @apply font-bold text-brand-700 underline decoration-brand-100 underline-offset-4 transition hover:text-brand-900; }
+    .site-button { @apply inline-flex items-center justify-center rounded-xl bg-brand-600 px-5 py-3 font-bold text-white transition hover:bg-brand-700; }
+    .site-button-secondary { @apply inline-flex items-center justify-center rounded-xl border border-white/40 px-5 py-3 font-bold text-white transition hover:border-white hover:bg-white/10; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
 }

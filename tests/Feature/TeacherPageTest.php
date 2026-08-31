@@ -26,7 +26,7 @@ test('the public teacher page uses the public layout and lists active teachers o
 
     $response
         ->assertOk()
-        ->assertSee('Website Sekolah')
+        ->assertSee('SMKN 1 Katapang')
         ->assertSee('Guru Aktif')
         ->assertDontSee('Guru Nonaktif');
 });

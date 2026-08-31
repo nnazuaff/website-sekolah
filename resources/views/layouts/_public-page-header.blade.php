@@ -3,6 +3,10 @@
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="{{ route('home') }}">Beranda</a>
             <span aria-hidden="true">/</span>
+            @if (!empty($parentRoute) && !empty($parentLabel))
+                <a href="{{ route($parentRoute) }}">{{ $parentLabel }}</a>
+                <span aria-hidden="true">/</span>
+            @endif
             <span aria-current="page">{{ $title }}</span>
         </nav>
         <h1 class="page-header-title">{{ $title }}</h1>

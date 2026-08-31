@@ -56,8 +56,12 @@ test('school profile page presents the first profile details', function () {
         'principal_greeting' => 'Selamat datang di sekolah kami.',
     ]);
 
-    $this->get(route('school-profile.index'))
+    $response = $this->get(route('school-profile.index'));
+
+    $response
         ->assertOk()
+        ->assertSee('Profil Sekolah')
+        ->assertSee('Informasi resmi mengenai sejarah, visi, misi, dan pimpinan sekolah.')
         ->assertSee('SMK Nusantara')
         ->assertSee('Berdiri sejak tahun 1990.')
         ->assertSee('Menjadi sekolah unggul.')

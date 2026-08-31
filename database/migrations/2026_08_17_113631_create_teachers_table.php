@@ -11,19 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-    Schema::create('teachers', function (Blueprint $table) {
-        $table->id();
+        Schema::create('teachers', function (Blueprint $table) {
+            $table->id();
 
-        $table->string('name');
-        $table->string('nip')->unique();
-        $table->string('position');
-        $table->string('subject');
-        $table->string('photo')->nullable();
-        $table->text('description')->nullable();
-        $table->boolean('is_active')->default(true);
+            $table->string('name');
+            $table->string('nip')->unique();
+            $table->string('position');
+            $table->string('subject');
+            $table->string('photo')->nullable();
+            $table->text('description')->nullable();
+            $table->boolean('is_active')->default(true);
 
-        $table->timestamps();
-    });
+            $table->timestamps();
+        });
     }
 
     /**

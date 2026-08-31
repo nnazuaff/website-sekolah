@@ -1,17 +1,8 @@
 <?php
 
+use App\Http\Controllers\Public\TeacherController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TeacherController;
 
-Route::get('/storage/{path}', function (string $path) {
-    $fullPath = storage_path('app/public/' . $path);
-
-    abort_unless(file_exists($fullPath), 404);
-
-    return response()->file($fullPath);
-})->where('path', '.*');
-
-Route::view('/', 'public.home');
-
+Route::view('/', 'public.home')->name('home');
 
 Route::get('/guru', [TeacherController::class, 'index'])->name('teachers.index');

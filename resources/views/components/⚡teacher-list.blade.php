@@ -30,66 +30,70 @@ new class extends Component
 ?>
 
 <div>
-    {{-- ================= TOOLBAR ================= --}}
-    <div class="toolbar">
+    <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center">
         <input
             type="text"
             wire:model.live.debounce.300ms="search"
-            class="search-input"
+            class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-slate-500 focus:ring-2 focus:ring-slate-200 sm:flex-1"
             placeholder="Cari guru..."
+            aria-label="Cari guru"
         >
 
-        <div class="stat-card">
-            <div>
-                <div class="stat-label">Total Guru Aktif</div>
-                <div class="stat-value">{{ $teachers->total() }}</div>
-            </div>
+        <div class="rounded-lg bg-slate-100 px-5 py-3 text-center sm:min-w-44">
+            <div class="text-xs font-medium text-slate-500">Total Guru Aktif</div>
+            <div class="text-xl font-bold text-slate-900">{{ $teachers->total() }}</div>
         </div>
     </div>
 
-    {{-- ================= GRID ================= --}}
-    <div class="teachers-grid" wire:loading.class="opacity-50">
-
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" wire:loading.class="opacity-50">
         @forelse ($teachers as $teacher)
-            <div class="teacher-card" wire:key="teacher-{{ $teacher->id }}">
-                <span class="badge-active">Aktif</span>
+            <article class="relative rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                <span class="absolute right-5 top-5 rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
+                    Aktif
+                </span>
 
-                <h3>{{ $teacher->name }}</h3>
-                <p class="position">{{ $teacher->position }}</p>
-
-                <div class="card-top">
+                <div class="flex items-start gap-4">
                     @if ($teacher->photo)
-                        <img src="{{ asset('storage/' . $teacher->photo) }}" alt="{{ $teacher->name }}" class="teacher-photo">
+                        <img
+                            src="{{ asset('storage/' . $teacher->photo) }}"
+                            alt="Foto {{ $teacher->name }}"
+                            class="h-20 w-20 shrink-0 rounded-full object-cover"
+                        >
                     @else
-                        <div class="no-photo">{{ strtoupper(substr($teacher->name, 0, 1)) }}</div>
+                        <div class="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-slate-100 text-2xl font-bold text-slate-500">
+                            {{ strtoupper(substr($teacher->name, 0, 1)) }}
+                        </div>
                     @endif
 
-                    @if ($teacher->description)
-                        <p class="desc-preview">{{ $teacher->description }}</p>
-                    @endif
+                    <div class="min-w-0 pt-1">
+                        <h2 class="pr-14 text-lg font-bold text-slate-900">{{ $teacher->name }}</h2>
+                        <p class="mt-1 text-sm font-medium text-slate-600">{{ $teacher->position }}</p>
+                    </div>
                 </div>
 
-                <div class="meta-line">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="13" y2="13"/></svg>
-                    NIP. {{ $teacher->nip }}
-                </div>
+                @if ($teacher->description)
+                    <p class="mt-5 line-clamp-3 text-sm leading-6 text-slate-600">{{ $teacher->description }}</p>
+                @endif
 
-                <div class="meta-line">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-                    {{ $teacher->subject }}
-                </div>
-            </div>
-
+                <dl class="mt-5 space-y-3 border-t border-slate-100 pt-4 text-sm text-slate-600">
+                    <div class="flex gap-2">
+                        <dt class="font-semibold text-slate-900">NIP:</dt>
+                        <dd class="break-all">{{ $teacher->nip }}</dd>
+                    </div>
+                    <div class="flex gap-2">
+                        <dt class="font-semibold text-slate-900">Mata pelajaran:</dt>
+                        <dd>{{ $teacher->subject }}</dd>
+                    </div>
+                </dl>
+            </article>
         @empty
-
-            <div class="empty-state">Belum ada guru yang cocok dengan pencarian.</div>
-
+            <div class="col-span-full rounded-xl border border-dashed border-slate-300 px-6 py-16 text-center text-slate-500">
+                Belum ada guru yang cocok dengan pencarian.
+            </div>
         @endforelse
-
     </div>
 
-    {{-- ================= PAGINATION ================= --}}
-    <div class="pagination-wrap">
+    <div class="mt-8">
         {{ $teachers->links() }}
     </div>
 </div>

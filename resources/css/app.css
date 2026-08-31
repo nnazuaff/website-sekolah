@@ -1,38 +1,48 @@
 @import 'tailwindcss';
-
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
-    --color-brand-950: #071a3d;
-    --color-brand-900: #0b2a63;
-    --color-brand-800: #123f8f;
-    --color-brand-700: #1754b5;
-    --color-brand-600: #2563c7;
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+    --color-brand-950: #092653;
+    --color-brand-900: #0d3470;
+    --color-brand-800: #1553a1;
+    --color-brand-700: #1769c2;
+    --color-brand-600: #1d78d4;
     --color-brand-100: #dcecff;
-    --color-brand-50: #eef6ff;
+    --color-brand-50: #f1f7ff;
 }
 
 @layer base {
     html { scroll-behavior: smooth; }
-    body { background: #f8fbff; color: #12213f; }
-    :focus-visible { outline: 3px solid #60a5fa; outline-offset: 3px; }
+    body { background: #f7f9fc; color: #24334d; }
+    :focus-visible { outline: 3px solid #2563eb; outline-offset: 3px; }
+    a { transition: color .18s ease, background-color .18s ease, border-color .18s ease; }
 }
 
 @layer components {
     .site-shell { @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8; }
-    .site-hero { @apply bg-brand-950 text-white; }
-    .site-hero-inner { @apply mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24; }
-    .site-eyebrow { @apply text-sm font-bold uppercase tracking-[0.2em] text-sky-300; }
-    .site-section { @apply mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-20; }
-    .site-card { @apply rounded-2xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md; }
-    .site-link { @apply font-bold text-brand-700 underline decoration-brand-100 underline-offset-4 transition hover:text-brand-900; }
-    .site-button { @apply inline-flex items-center justify-center rounded-xl bg-brand-600 px-5 py-3 font-bold text-white transition hover:bg-brand-700; }
-    .site-button-secondary { @apply inline-flex items-center justify-center rounded-xl border border-white/40 px-5 py-3 font-bold text-white transition hover:border-white hover:bg-white/10; }
+    .topbar { @apply bg-brand-950 py-2 text-xs text-blue-100; }
+    .site-nav { box-shadow: 0 1px 4px rgb(15 47 96 / 6%); }
+    .nav-link { @apply inline-flex items-center rounded-md px-3 py-2 text-slate-600 hover:bg-brand-50 hover:text-brand-800; }
+    .nav-link.is-active { @apply bg-brand-50 text-brand-800; box-shadow: inset 0 -2px 0 #1769c2; }
+    .nav-link-mobile { @apply w-full justify-start; }
+    .site-hero { @apply border-b border-blue-100 bg-brand-50 text-brand-950; }
+    .site-hero-inner { @apply mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 sm:py-14 lg:px-8; }
+    .site-hero h1 { @apply max-w-4xl text-4xl font-extrabold tracking-tight sm:text-5xl; }
+    .site-hero p { @apply max-w-2xl; }
+    .site-hero .text-slate-300, .site-hero .text-slate-400 { color: #415979; }
+    .site-hero a { @apply text-brand-700 hover:text-brand-950; }
+    .site-eyebrow { @apply text-xs font-bold tracking-wide text-brand-700; }
+    .site-section { @apply mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 sm:py-14 lg:px-8; }
+    .site-card { @apply rounded-lg border border-slate-200 bg-white shadow-sm transition hover:border-blue-200 hover:shadow-md; }
+    .site-link { @apply font-bold text-brand-700 underline decoration-blue-200 underline-offset-4 hover:text-brand-950; }
+    .site-button { @apply inline-flex items-center justify-center rounded-md bg-brand-700 px-5 py-3 font-bold text-white hover:bg-brand-800 active:translate-y-px; }
+    .site-button-secondary { @apply inline-flex items-center justify-center rounded-md border border-brand-700 px-5 py-3 font-bold text-brand-800 hover:bg-brand-50 active:translate-y-px; }
+    .footer-link { @apply text-blue-100 hover:text-white hover:underline; }
+    .prose a { @apply text-brand-700 underline; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+    *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }

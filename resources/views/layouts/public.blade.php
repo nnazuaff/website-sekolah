@@ -3,41 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Informasi resmi SMKN 1 Katapang untuk keluarga dan masyarakat.">
-    <title>@yield('title', 'SMKN 1 Katapang')</title>
+    <meta name="description" content="{{ $metaDescription ?? 'Website resmi SMKN 1 Katapang. Informasi profil, program keahlian, berita, pengumuman, dan kegiatan sekolah.' }}">
+    <title>@yield('title', 'SMKN 1 Katapang') | SMKN 1 Katapang</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen bg-slate-50 text-slate-900 antialiased">
+<body class="min-h-screen bg-slate-50 text-slate-800 antialiased">
     @php($siteProfile = $schoolProfile ?? null)
-    <header class="sticky top-0 z-20 border-b border-blue-100/80 bg-white/95 backdrop-blur">
-        <nav class="site-shell flex flex-wrap items-center justify-between gap-4 py-4" aria-label="Navigasi utama">
-            <a href="{{ route('home') }}" class="flex min-w-0 items-center gap-3 font-black tracking-tight text-brand-950">
-                @if ($siteProfile?->logo)
-                    <img src="{{ asset('storage/' . $siteProfile->logo) }}" alt="Logo {{ $siteProfile->name }}" class="h-10 w-10 rounded-xl object-cover">
-                @else
-                    <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-900 text-lg text-white" aria-hidden="true">SK</span>
-                @endif
-                <span class="truncate">{{ $siteProfile?->name ?? 'SMKN 1 Katapang' }}</span>
+    <div class="topbar"><div class="site-shell flex items-center justify-between gap-4"><span>Website resmi {{ $siteProfile?->name ?? 'SMKN 1 Katapang' }}</span><span class="hidden sm:inline">Jalan Ceuri Terusan Kopo KM 13,5, Kabupaten Bandung</span></div></div>
+    <header class="site-nav sticky top-0 z-20 border-b border-slate-200 bg-white">
+        <nav class="site-shell flex min-h-18 items-center justify-between gap-6" aria-label="Navigasi utama">
+            <a href="{{ route('home') }}" class="flex min-w-0 items-center gap-3 text-brand-950" aria-label="Beranda {{ $siteProfile?->name ?? 'SMKN 1 Katapang' }}">
+                @if ($siteProfile?->logo)<img src="{{ asset('storage/' . $siteProfile->logo) }}" alt="Logo {{ $siteProfile->name }}" class="h-11 w-11 rounded-lg object-cover">@else<span class="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-brand-800 text-sm font-black text-white" aria-hidden="true">SK</span>@endif
+                <span class="truncate text-sm font-extrabold sm:text-base">{{ $siteProfile?->name ?? 'SMKN 1 Katapang' }}</span>
             </a>
-            <div class="flex w-full flex-wrap items-center gap-x-4 gap-y-2 text-sm font-semibold text-slate-600 sm:w-auto sm:justify-end">
-                <a href="{{ route('home') }}" class="transition hover:text-brand-700">Beranda</a>
-                <a href="{{ route('school-profile.index') }}" class="transition hover:text-brand-700">Profil</a>
-                <a href="{{ route('majors.index') }}" class="transition hover:text-brand-700">Jurusan</a>
-                <a href="{{ route('teachers.index') }}" class="transition hover:text-brand-700">Guru</a>
-                <a href="{{ route('news.index') }}" class="transition hover:text-brand-700">Berita</a>
-                <a href="{{ route('pengumuman.index') }}" class="transition hover:text-brand-700">Pengumuman</a>
-                <a href="{{ route('galeri.index') }}" class="transition hover:text-brand-700">Galeri</a>
-                <a href="{{ route('fasilitas.index') }}" class="transition hover:text-brand-700">Fasilitas</a>
-                <a href="{{ route('contact.index') }}" class="transition hover:text-brand-700">Kontak</a>
-            </div>
+            <details class="mobile-menu relative lg:hidden"><summary class="cursor-pointer list-none rounded-lg border border-slate-300 px-3 py-2 text-sm font-bold text-brand-800">Menu</summary><div class="absolute right-0 top-12 z-30 w-64 rounded-lg border border-slate-200 bg-white p-2 shadow-lg">@include('layouts._public-nav', ['mobile' => true])</div></details>
+            <div class="hidden items-center gap-1 text-sm font-semibold lg:flex">@include('layouts._public-nav', ['mobile' => false])</div>
         </nav>
     </header>
     <main>@yield('content')</main>
     <footer class="mt-16 bg-brand-950 text-blue-100">
-        <div class="site-shell flex flex-col gap-5 py-9 text-sm sm:flex-row sm:items-center sm:justify-between">
-            <div><p class="font-bold text-white">{{ $siteProfile?->name ?? 'SMKN 1 Katapang' }}</p><p class="mt-1">© {{ date('Y') }} · Informasi resmi sekolah</p></div>
-            <a href="{{ route('contact.index') }}" class="font-bold text-sky-300 transition hover:text-white">Hubungi kami <span aria-hidden="true">→</span></a>
-        </div>
+        <div class="site-shell grid gap-10 py-12 md:grid-cols-3">
+            <div><p class="text-lg font-extrabold text-white">{{ $siteProfile?->name ?? 'SMKN 1 Katapang' }}</p><p class="mt-3 max-w-sm text-sm leading-6">Menyiapkan lulusan yang unggul, berkarakter kebangsaan, kompetitif, dan adaptif.</p></div>
+            <div><h2 class="font-bold text-white">Tautan cepat</h2><div class="mt-3 grid gap-2 text-sm"><a href="{{ route('school-profile.index') }}" class="footer-link">Profil sekolah</a><a href="{{ route('majors.index') }}" class="footer-link">Program keahlian</a><a href="{{ route('news.index') }}" class="footer-link">Berita sekolah</a><a href="{{ route('contact.index') }}" class="footer-link">Kontak</a></div></div>
+            <div><h2 class="font-bold text-white">Kontak dan alamat</h2><p class="mt-3 text-sm leading-6">{{ $siteProfile?->address ?? 'Jalan Ceuri Terusan Kopo KM 13,5, Kabupaten Bandung' }}</p>@if($siteProfile?->phone)<a class="footer-link mt-2 block text-sm" href="tel:{{ $siteProfile->phone }}">{{ $siteProfile->phone }}</a>@endif</div>
+        </div><div class="border-t border-white/10"><div class="site-shell py-4 text-xs text-blue-200">© {{ date('Y') }} {{ $siteProfile?->name ?? 'SMKN 1 Katapang' }}. Informasi resmi sekolah.</div></div>
     </footer>
 </body>
 </html>

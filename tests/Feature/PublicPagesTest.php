@@ -35,6 +35,16 @@ test('homepage presents school profile and active teachers', function () {
         ->assertDontSee('Guru Tidak Aktif');
 });
 
+test('public navigation exposes working links and active route state', function () {
+    $response = $this->get(route('majors.index'));
+
+    $response->assertOk()
+        ->assertSee('href="'.route('home').'"', false)
+        ->assertSee('href="'.route('majors.index').'"', false)
+        ->assertSee('aria-current="page"', false)
+        ->assertSee('Program keahlian');
+});
+
 test('school profile page presents the first profile details', function () {
     SchoolProfile::create([
         'name' => 'SMK Nusantara',

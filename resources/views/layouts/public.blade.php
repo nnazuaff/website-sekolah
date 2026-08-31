@@ -15,9 +15,11 @@
     <header>
         <nav class="border-b">
             <div class="mx-auto max-w-7xl px-4 py-4">
-                <a href="/" class="font-semibold">
-                    Website Sekolah
-                </a>
+                <div class="flex flex-wrap items-center gap-5">
+                    <a href="/" class="font-semibold">Website Sekolah</a>
+                    <a href="{{ route('majors.index') }}" class="text-sm text-zinc-600 hover:text-zinc-900">Jurusan</a>
+                    <a href="{{ route('news.index') }}" class="text-sm text-zinc-600 hover:text-zinc-900">Berita</a>
+                </div>
             </div>
         </nav>
     </header>

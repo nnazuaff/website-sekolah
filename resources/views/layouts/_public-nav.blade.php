@@ -16,10 +16,10 @@
 @else
     <a href="{{ route('home') }}" @class(['nav-link', 'is-active' => request()->routeIs('home')]) @if(request()->routeIs('home')) aria-current="page" @endif>Beranda</a>
     @foreach ($groups as $group)
-        <details class="nav-dropdown" @if($group['active']) open @endif>
-            <summary @class(['nav-link', 'is-active' => $group['active']])>{{ $group['label'] }} <span aria-hidden="true">⌄</span></summary>
+        <div class="nav-dropdown">
+            <button type="button" @class(['nav-link', 'is-active' => $group['active']]) aria-haspopup="true">{{ $group['label'] }} <span aria-hidden="true">⌄</span></button>
             <div class="nav-dropdown-panel">@foreach ($group['items'] as $item)<a @class(['is-current' => request()->routeIs($item['pattern'])]) @if(request()->routeIs($item['pattern'])) aria-current="page" @endif href="{{ route($item['route']) }}">{{ $item['label'] }}</a>@endforeach</div>
-        </details>
+        </div>
     @endforeach
     <a href="{{ route('contact.index') }}" @class(['nav-cta', 'is-active' => request()->routeIs('contact.*')])>Hubungi sekolah</a>
 @endif

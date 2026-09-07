@@ -34,6 +34,13 @@ class AdminPanelProvider extends PanelProvider
                     ? Storage::disk('public')->url($logo)
                     : null;
             })
+            ->favicon(function () {
+                $logo = SchoolProfile::query()->first()?->logo;
+
+                return $logo && Storage::disk('public')->exists($logo)
+                    ? Storage::disk('public')->url($logo)
+                    : asset('images/logo.jpg');
+            })
             ->brandLogoHeight('2.5rem')
             ->default()
             ->id('admin')

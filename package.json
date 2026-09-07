@@ -4,7 +4,8 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "dev:ngrok": "bash scripts/dev-ngrok.sh"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",

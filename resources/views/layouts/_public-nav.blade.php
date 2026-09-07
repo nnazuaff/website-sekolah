@@ -9,7 +9,7 @@
     <a href="{{ route('home') }}" @class(['mobile-nav-link', 'is-active' => request()->routeIs('home')])>Beranda</a>
     @foreach ($groups as $group)
         <details class="mobile-nav-dropdown" @if($group['active']) open @endif>
-            <summary @class(['mobile-nav-link', 'is-active' => $group['active']])>{{ $group['label'] }} <span aria-hidden="true">⌄</span></summary>
+            <summary @class(['mobile-nav-link', 'is-active' => $group['active']])>{{ $group['label'] }} <span class="nav-chevron" aria-hidden="true"></span></summary>
             <div>@foreach ($group['items'] as $item)<a @class(['is-current' => request()->routeIs($item['pattern'])]) href="{{ route($item['route']) }}">{{ $item['label'] }}</a>@endforeach</div>
         </details>
     @endforeach
@@ -17,7 +17,7 @@
     <a href="{{ route('home') }}" @class(['nav-link', 'is-active' => request()->routeIs('home')]) @if(request()->routeIs('home')) aria-current="page" @endif>Beranda</a>
     @foreach ($groups as $group)
         <div class="nav-dropdown">
-            <button type="button" @class(['nav-link', 'is-active' => $group['active']]) aria-haspopup="true">{{ $group['label'] }} <span aria-hidden="true">⌄</span></button>
+            <button type="button" @class(['nav-link', 'is-active' => $group['active']]) aria-haspopup="true">{{ $group['label'] }} <span class="nav-chevron" aria-hidden="true"></span></button>
             <div class="nav-dropdown-panel">@foreach ($group['items'] as $item)<a @class(['is-current' => request()->routeIs($item['pattern'])]) @if(request()->routeIs($item['pattern'])) aria-current="page" @endif href="{{ route($item['route']) }}">{{ $item['label'] }}</a>@endforeach</div>
         </div>
     @endforeach

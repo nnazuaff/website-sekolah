@@ -56,3 +56,44 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Menjalankan Localhost dan Ngrok
+
+Prasyarat:
+
+- PHP 8.3+
+- Composer
+- Node.js dan npm
+- ngrok sudah ter-install dan sudah dikonfigurasi dengan `ngrok config add-authtoken ...`
+
+Setelah clone atau `git pull`, jalankan:
+
+```bash
+npm run dev:ngrok
+```
+
+Script tersebut akan:
+
+1. Membuat `.env` dan `APP_KEY` jika belum ada.
+2. Menjalankan `composer install` dan `npm install` jika dependency belum tersedia.
+3. Membuat storage link dan menjalankan migration lokal.
+4. Memaksa Laravel memakai asset build production meskipun Vite HMR localhost sedang aktif.
+5. Membuild asset frontend dengan Vite.
+6. Menjalankan Laravel di port `8000`.
+7. Membuka tunnel ngrok dan menampilkan URL local serta URL publik dengan bypass browser warning.
+
+Untuk menjalankan frontend lokal saja dengan Vite:
+
+```bash
+npm run dev
+```
+
+Port Laravel dapat diganti tanpa mengubah file project:
+
+```bash
+APP_PORT=8080 npm run dev:ngrok
+```
+
+Token ngrok tidak disimpan di repository. Konfigurasikan token sekali di mesin lokal dengan `ngrok config add-authtoken`, lalu script dapat digunakan setelah `git pull` tanpa memasukkan credential ke `.env` atau Git.
+
+Gunakan URL Ngrok yang dicetak oleh script, termasuk query `ngrok-skip-browser-warning=true`, agar halaman interstitial Ngrok tidak mengganggu pemuatan CSS, JavaScript, dan font.

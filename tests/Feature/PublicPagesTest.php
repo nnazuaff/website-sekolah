@@ -45,6 +45,21 @@ test('public navigation exposes working links and active route state', function 
         ->assertSee('Program keahlian');
 });
 
+test('teacher public page renders the livewire listing and its assets', function () {
+    Teacher::create([
+        'name' => 'Budi Santoso',
+        'nip' => '1234567890',
+        'position' => 'Guru',
+        'subject' => 'Pemrograman',
+        'is_active' => true,
+    ]);
+
+    $this->get(route('teachers.index'))
+        ->assertOk()
+        ->assertSee('Budi Santoso')
+        ->assertSee('data-update-uri=', false);
+});
+
 test('school profile page presents the first profile details', function () {
     SchoolProfile::create([
         'name' => 'SMK Nusantara',

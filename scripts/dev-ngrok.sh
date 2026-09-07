@@ -110,6 +110,17 @@ if ! curl -fsS --max-time 2 "http://127.0.0.1:${APP_PORT}" >/dev/null 2>&1; then
     exit 1
 fi
 
+PUBLIC_HOST="${PUBLIC_URL#https://}"
+RUNTIME_HTML="$(curl -fsS --max-time 5 \
+    -H "Host: ${PUBLIC_HOST}" \
+    -H 'X-Forwarded-Proto: https' \
+    "http://127.0.0.1:${APP_PORT}")"
+
+if [[ "$RUNTIME_HTML" == *"http://127.0.0.1"* || "$RUNTIME_HTML" == *"http://localhost"* || "$RUNTIME_HTML" == *"http://${PUBLIC_HOST}"* || "$RUNTIME_HTML" != *"https://${PUBLIC_HOST}/build/"* ]]; then
+    printf 'Konfigurasi URL publik tidak valid. Asset atau route masih menunjuk ke localhost/http.\n' >&2
+    exit 1
+fi
+
 printf '\nProject siap diakses:\n'
 printf '  Local : http://127.0.0.1:%s\n' "$APP_PORT"
 printf '  Ngrok : %s\n' "$PUBLIC_URL_WITH_BYPASS"

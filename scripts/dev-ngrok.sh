@@ -36,6 +36,7 @@ require_command composer
 require_command npm
 require_command ngrok
 require_command curl
+require_command pgrep
 
 if [[ ! -f .env ]]; then
     printf 'File .env belum ada, membuat dari .env.example...\n'
@@ -63,8 +64,15 @@ if curl -fsS --max-time 1 "http://127.0.0.1:${APP_PORT}" >/dev/null 2>&1; then
     exit 1
 fi
 
+EXISTING_NGROK_PIDS="$(pgrep -f '(^|/)ngrok http' || true)"
+if [[ -n "$EXISTING_NGROK_PIDS" ]]; then
+    printf 'Proses ngrok lama masih aktif (PID: %s). Hentikan dengan: kill %s\n' \
+        "${EXISTING_NGROK_PIDS//$'\n'/ }" "${EXISTING_NGROK_PIDS//$'\n'/ }" >&2
+    exit 1
+fi
+
 if [[ -n "$(get_public_url)" ]]; then
-    printf 'Sudah ada tunnel ngrok aktif. Hentikan tunnel lama terlebih dahulu.\n' >&2
+    printf 'Sudah ada tunnel ngrok aktif di API lokal. Hentikan tunnel lama terlebih dahulu.\n' >&2
     exit 1
 fi
 

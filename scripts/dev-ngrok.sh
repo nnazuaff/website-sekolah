@@ -101,8 +101,13 @@ fi
 
 PUBLIC_URL_WITH_BYPASS="${PUBLIC_URL}/?ngrok-skip-browser-warning=true"
 
-APP_URL="$PUBLIC_URL" VITE_FORCE_BUILD=true php artisan serve \
-    --host=0.0.0.0 --port="$APP_PORT" >/tmp/website-sekolah-laravel.log 2>&1 &
+# `artisan serve` hanya meneruskan daftar environment terbatas ke proses PHP.
+# Jalankan server PHP langsung agar APP_URL dan VITE_FORCE_BUILD tetap tersedia.
+(
+    cd public
+    APP_URL="$PUBLIC_URL" VITE_FORCE_BUILD=true php -S "0.0.0.0:${APP_PORT}" \
+        ../vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php
+) >/tmp/website-sekolah-laravel.log 2>&1 &
 PHP_PID=$!
 
 for _ in {1..20}; do

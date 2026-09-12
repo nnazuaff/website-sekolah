@@ -1,0 +1,6 @@
+@extends('layouts.public')
+@section('title', 'Berita')
+@section('content')
+@include('layouts._public-page-header', ['title' => 'Berita', 'description' => 'Informasi dan kegiatan terbaru dari sekolah.'])
+<section class="site-section">@if($news->isEmpty()) @include('layouts._public-empty', ['title' => 'Belum ada berita yang diterbitkan', 'message' => 'Kabar dan kegiatan terbaru sekolah akan ditampilkan setelah diterbitkan.']) @else<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">@foreach($news as $article)<article class="site-card"><div class="image-placeholder">@if($article->thumbnail)<img src="{{ asset('storage/'.$article->thumbnail) }}" alt="{{ $article->title }}" class="h-52 w-full object-cover">@else<span>Berita sekolah</span>@endif</div><div class="p-5"><p class="site-meta">{{ $article->published_at->translatedFormat('d F Y') }}</p><h2 class="mt-2 text-xl font-bold text-brand-950">{{ $article->title }}</h2>@if($article->excerpt)<p class="mt-3 text-sm leading-6 text-slate-600">{{ $article->excerpt }}</p>@endif<a href="{{ route('news.show', $article->slug) }}" class="site-link mt-4 inline-block text-sm">Baca selengkapnya</a></div></article>@endforeach</div>@endif</section>
+@endsection

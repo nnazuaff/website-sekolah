@@ -1,0 +1,7 @@
+@extends('layouts.public')
+@section('title', 'Prestasi Sekolah')
+@section('content')
+@include('layouts._public-page-header', ['title' => 'Prestasi Sekolah', 'description' => 'Pencapaian dan karya terbaik warga sekolah.'])
+<section class="site-section">@if($achievements->isEmpty()) @include('layouts._public-empty', ['title' => 'Belum ada prestasi yang ditampilkan', 'message' => 'Data pencapaian siswa akan ditampilkan setelah diterbitkan oleh sekolah.']) @else
+<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">@foreach($achievements as $achievement)<article class="site-card"><div class="image-placeholder">@if($achievement->photo)<img src="{{ asset('storage/'.$achievement->photo) }}" alt="{{ $achievement->title }}" class="h-52 w-full object-cover">@else<span>Prestasi sekolah</span>@endif</div><div class="p-5"><div class="flex justify-between gap-3 text-sm"><span class="font-bold text-brand-700">{{ $achievement->level }}</span><span class="text-slate-500">{{ $achievement->year }}</span></div><h2 class="mt-3 text-xl font-bold text-brand-950">{{ $achievement->title }}</h2>@if($achievement->description)<p class="mt-3 text-sm leading-6 text-slate-600">{{ $achievement->description }}</p>@endif</div></article>@endforeach</div>@endif</section>
+@endsection

@@ -1,0 +1,6 @@
+@extends('layouts.public')
+@section('title', 'Galeri')
+@section('content')
+@include('layouts._public-page-header', ['title' => 'Galeri Sekolah', 'description' => 'Dokumentasi kegiatan dan momen sekolah.'])
+<section class="site-section"><div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">@forelse($galleries as $gallery)<article class="site-card"><div class="image-placeholder">@if($gallery->image)<img src="{{ Storage::disk('public')->url($gallery->image) }}" alt="{{ $gallery->title }}" class="h-52 w-full object-cover">@else<span>Dokumentasi sekolah</span>@endif</div><div class="p-5"><h2 class="text-xl font-bold text-brand-950">{{ $gallery->title }}</h2>@if($gallery->taken_at)<p class="site-meta mt-2">{{ $gallery->taken_at->translatedFormat('d F Y') }}</p>@endif @if($gallery->description)<p class="mt-3 text-slate-600">{{ $gallery->description }}</p>@endif</div></article>@empty<div class="sm:col-span-2 lg:col-span-3">@include('layouts._public-empty', ['title' => 'Belum ada dokumentasi galeri'])</div>@endforelse</div></section>
+@endsection

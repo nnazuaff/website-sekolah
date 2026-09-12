@@ -1,0 +1,6 @@
+@extends('layouts.public')
+@section('title', 'Pengumuman')
+@section('content')
+@include('layouts._public-page-header', ['title' => 'Pengumuman', 'description' => 'Informasi terbaru dari sekolah.'])
+<section class="site-section"><div class="mx-auto max-w-4xl space-y-5">@forelse($announcements as $announcement)<article class="site-card p-6"><p class="site-meta">{{ $announcement->published_at?->translatedFormat('d F Y') }}</p><h2 class="mt-2 text-2xl font-bold text-brand-950"><a class="hover:text-brand-700" href="{{ route('pengumuman.show', $announcement->slug) }}">{{ $announcement->title }}</a></h2><p class="mt-3 text-slate-600">{{ \Illuminate\Support\Str::limit(strip_tags($announcement->content), 180) }}</p><a class="site-link mt-4 inline-block text-sm" href="{{ route('pengumuman.show', $announcement->slug) }}">Baca selengkapnya</a></article>@empty @include('layouts._public-empty', ['title' => 'Belum ada pengumuman', 'message' => 'Pengumuman terbaru dari sekolah akan ditampilkan setelah diterbitkan.']) @endforelse</div></section>
+@endsection

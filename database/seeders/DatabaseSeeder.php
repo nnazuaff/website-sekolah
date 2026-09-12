@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\UserRole;
 use App\Models\Achievement;
 use App\Models\Announcement;
 use App\Models\Extracurricular;
@@ -28,6 +29,7 @@ class DatabaseSeeder extends Seeder
             User::factory()->create([
                 'name' => 'Admin Demo',
                 'email' => 'test@example.com',
+                'role' => UserRole::SuperAdmin,
             ]);
         }
 
@@ -42,6 +44,8 @@ class DatabaseSeeder extends Seeder
         if (Major::query()->doesntExist()) {
             Major::factory()->count(5)->create();
         }
+
+        $this->call(AcademicDemoSeeder::class);
 
         if (News::query()->doesntExist()) {
             News::factory()->count(8)->create();

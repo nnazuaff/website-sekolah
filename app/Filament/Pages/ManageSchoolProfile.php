@@ -2,9 +2,11 @@
 
 namespace App\Filament\Pages;
 
+use App\Enums\UserRole;
 use App\Models\SchoolProfile;
 use BackedEnum;
 use Filament\Actions\Action;
+use Filament\Facades\Filament;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Textarea;
@@ -33,6 +35,11 @@ class ManageSchoolProfile extends Page
     protected static ?string $title = 'Profil Sekolah';
 
     public ?array $data = [];
+
+    public static function canAccess(): bool
+    {
+        return in_array(Filament::auth()->user()?->role, [UserRole::SuperAdmin, UserRole::OperatorTu], true);
+    }
 
     public function mount(): void
     {
